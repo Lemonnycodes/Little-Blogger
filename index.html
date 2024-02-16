@@ -10,24 +10,19 @@
 </head>
 <body>
     <header class="header">
-
-<!-- Inside the header section -->
-<!-- Inside the header section -->
-<div class="header__actions">
-    <div class="header__links">
-        <ul>
-            <li><a href="#">Little Blogger</a></li>
-        </ul>
-        <ul class="sub-menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
-    <button class="btn">Login/Register</button>
-    <button class="btn">Add a new blog</button>
-</div>
-
+        <!-- Inside the header section -->
+        <div class="header__actions">
+            <div class="header__links">
+                <ul>
+                    <li><a href="#">Little Blogger</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <button class="btn">Search</button>
+            <button id="loginRegisterButton" class="btn">Login/Register</button>
+        </div>
     </header>
 
     <main class="main">
@@ -65,5 +60,55 @@
             <p>&copy; 2023 Little Blogger. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Login/Register Form Container -->
+    <div id="loginRegisterFormContainer" class="form-container"></div>
+
+    <!-- JavaScript for toggling form visibility and fetching form HTML -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginRegisterButton = document.getElementById('loginRegisterButton');
+            const formContainer = document.getElementById('loginRegisterFormContainer');
+
+            loginRegisterButton.addEventListener('click', function() {
+                // Toggle form visibility
+                formContainer.style.display = (formContainer.style.display === 'none' || formContainer.style.display === '') ? 'block' : 'none';
+
+                // Fetch and inject login/register form HTML
+                fetch('login_reg.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        formContainer.innerHTML = html;
+                    });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+    const formContainer = document.getElementById('loginRegisterFormContainer');
+
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'registerLink') {
+            e.preventDefault(); // Prevent the default link action
+            fetch('register form.html') // Fetch the registration form
+                .then(response => response.text())
+                .then(html => {
+                    formContainer.innerHTML = html; // Replace the current form with the registration form
+                    formContainer.style.display = 'block'; // Make sure the form container is visible
+                });
+        } else if (e.target.id === 'loginLink') {
+            e.preventDefault();
+            fetch('login_reg.html')
+                .then(response => response.text())
+                .then(html => {
+                    formContainer.innerHTML = html;
+                    formContainer.style.display = 'block';
+                });
+        } else if (e.target.closest('.exit-button')) {
+            e.preventDefault();
+            formContainer.style.display = 'none'; // Close the form
+        }
+    });
+});
+
+    </script>
 </body>
 </html>
